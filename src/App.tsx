@@ -17,6 +17,8 @@ import Dashboard from "./pages/admin/Dashboard";
 import SnowmobilesList from "./pages/admin/SnowmobilesList";
 import OrdersList from "./pages/admin/OrdersList";
 import Bookings from "./pages/admin/Bookings";
+import BookingDetail from "./pages/admin/BookingDetail";
+import Statistics from "./pages/admin/Statistics";
 import { AuthProvider } from "./hooks/use-auth";
 import { CartProvider } from "./hooks/use-cart";
 
@@ -45,6 +47,8 @@ const App = () => (
                 <Route path="snowmobiles" element={<SnowmobilesList />} />
                 <Route path="orders" element={<OrdersList />} />
                 <Route path="bookings" element={<Bookings />} />
+                <Route path="bookings/:id" element={<BookingDetail />} />
+                <Route path="statistics" element={<Statistics />} />
               </Route>
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
