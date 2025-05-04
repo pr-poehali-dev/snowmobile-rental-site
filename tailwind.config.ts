@@ -7,7 +7,7 @@ const config: Config = {
   content: [
     './index.html',
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     container: {
