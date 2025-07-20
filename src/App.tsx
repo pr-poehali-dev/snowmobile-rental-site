@@ -2,7 +2,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -21,8 +21,10 @@ import BookingDetail from "./pages/admin/BookingDetail";
 import Statistics from "./pages/admin/Statistics";
 import { AuthProvider } from "./hooks/use-auth";
 import { CartProvider } from "./hooks/use-cart";
+import { queryClient, syncAcrossTabs } from "./lib/api/cache";
 
-const queryClient = new QueryClient();
+// Инициализируем синхронизацию между вкладками
+syncAcrossTabs();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

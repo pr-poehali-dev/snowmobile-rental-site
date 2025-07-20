@@ -42,7 +42,6 @@ const BookingForm = ({ snowmobile }: BookingFormProps) => {
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [total, setTotal] = useState<number>(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const {
     register,
@@ -98,49 +97,15 @@ const BookingForm = ({ snowmobile }: BookingFormProps) => {
       return;
     }
     
-    setIsSubmitting(true);
-    
-    const bookingData: BookingCreateData = {
-      snowmobileId: snowmobile.id,
+    // Перенаправляем на страницу оформления заказа с параметрами
+    const searchParams = new URLSearchParams({
+      snowmobileId: snowmobile.id.toString(),
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
-      quantity: data.quantity,
-      customerInfo: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-      },
-    };
+      quantity: data.quantity.toString(),
+    });
     
-    try {
-      // Если в разработке, эмулируем успешное бронирование
-      if (import.meta.env.DEV) {
-        // Имитация задержки запроса
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        toast({
-          title: 'Бронирование создано',
-          description: 'Ваше бронирование успешно оформлено',
-        });
-        navigate('/profile');
-      } else {
-        // В продакшн-режиме вызываем реальный API
-        const booking = await bookingApi.createBooking(bookingData);
-        toast({
-          title: 'Бронирование создано',
-          description: `Ваше бронирование #${booking.id} успешно оформлено`,
-        });
-        navigate('/profile');
-      }
-    } catch (error) {
-      console.error('Error creating booking:', error);
-      toast({
-        title: 'Ошибка',
-        description: 'Не удалось создать бронирование. Пожалуйста, попробуйте еще раз.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    navigate(`/checkout?${searchParams.toString()}`);
   };
   
   return (
@@ -290,19 +255,10 @@ const BookingForm = ({ snowmobile }: BookingFormProps) => {
               type="submit"
               form="booking-form"
               className="w-full"
-              disabled={isSubmitting || !startDate || !endDate}
+              disabled={!startDate || !endDate}
             >
-              {isSubmitting ? (
-                <>
-                  <Icon name="Loader2" className="mr-2 h-4 w-4 animate-spin" />
-                  Оформление...
-                </>
-              ) : (
-                <>
-                  <Icon name="CheckCircle" className="mr-2 h-4 w-4" />
-                  Забронировать
-                </>
-              )}
+              <Icon name="ShoppingCart" className="mr-2 h-4 w-4" />
+              Перейти к оплате
             </Button>
           </div>
         </CardFooter>

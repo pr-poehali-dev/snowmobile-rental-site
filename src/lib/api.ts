@@ -2,6 +2,7 @@
 import { Snowmobile, Filter, SortOption } from '@/types/snowmobile';
 import { User } from '@/types/user';
 import { snowmobiles, filterSnowmobiles } from '@/data/snowmobiles';
+import './api/interceptors';
 
 // Тип данных для пагинации
 export interface PaginatedResponse<T> {
