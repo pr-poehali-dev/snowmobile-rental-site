@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const navItems = [
   { path: '/admin', label: 'Дашборд', icon: 'LayoutDashboard' },
@@ -31,7 +31,7 @@ const AdminLayout = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
 
   const handleLogout = () => {
