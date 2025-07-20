@@ -1,16 +1,19 @@
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Snowmobile } from '@/types/snowmobile';
 import Icon from '@/components/ui/icon';
+import AddToCartDialog from '@/components/cart/AddToCartDialog';
 
 interface SnowmobileCardProps {
   snowmobile: Snowmobile;
-  onAddToCart: (snowmobile: Snowmobile) => void;
+  onAddToCart?: (snowmobile: Snowmobile) => void;
 }
 
 const SnowmobileCard = ({ snowmobile, onAddToCart }: SnowmobileCardProps) => {
+  const [showAddToCart, setShowAddToCart] = useState(false);
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-video w-full overflow-hidden">
@@ -66,11 +69,24 @@ const SnowmobileCard = ({ snowmobile, onAddToCart }: SnowmobileCardProps) => {
         <Button 
           className="w-full"
           disabled={!snowmobile.available}
-          onClick={() => onAddToCart(snowmobile)}
+          onClick={() => {
+            if (onAddToCart) {
+              onAddToCart(snowmobile);
+            } else {
+              setShowAddToCart(true);
+            }
+          }}
         >
           В корзину
         </Button>
       </CardFooter>
+
+      {/* Диалог добавления в корзину */}
+      <AddToCartDialog
+        isOpen={showAddToCart}
+        onClose={() => setShowAddToCart(false)}
+        snowmobile={snowmobile}
+      />
     </Card>
   );
 };

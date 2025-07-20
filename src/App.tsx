@@ -12,6 +12,8 @@ import Catalog from "./pages/Catalog";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import SnowmobileDetail from "./pages/SnowmobileDetail";
+import CartBooking from "./pages/CartBooking";
+import BookingConfirmation from "./pages/BookingConfirmation";
 import AdminLayout from "./components/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import SnowmobilesList from "./pages/admin/SnowmobilesList";
@@ -41,6 +43,8 @@ const App = () => (
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/snowmobile/:id" element={<SnowmobileDetail />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/cart-booking" element={<CartBooking />} />
+              <Route path="/booking-confirmation/:bookingNumber" element={<BookingConfirmation />} />
               <Route path="/profile" element={<Profile />} />
               
               {/* Административная панель */}
